@@ -35,14 +35,13 @@ export const DailyDataCard: FC<PropTypes> = ({
       </div>
       <section css={styles.iconSection}>
         {score !== 0 && <Star score={score} />}
-        {/* TODO: 데이터 수정 기능 구현 시 아래 dom살리기 */}
         <div css={styles.iconsWrap}>
-          {/* <CardControlButton
+          <CardControlButton
             itemId={id}
             buttonType="EDIT"
             sortingArr={sortingArr}
             setSortingArr={setSortingArr}
-          /> */}
+          />
           <CardControlButton
             buttonType="DELETE"
             sortingArr={sortingArr}

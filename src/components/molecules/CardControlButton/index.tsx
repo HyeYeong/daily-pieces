@@ -72,9 +72,18 @@ export const CardControlButton: FC<PropTypes> = ({
     return setSortingArr(sortingArr.filter((data) => data.id !== targetId));
   };
 
+  const handleEdit = (event: MouseEvent<HTMLButtonElement>) => {
+    let data = event.currentTarget.offsetParent;
+    const targetId = parseInt(event.currentTarget.offsetParent!.id, 10);
+    const targetData = sortingArr.find((data) => data.id === targetId);
+    console.log("EDIT", targetData);
+  };
+
   return (
     <button
-      onClick={(event: MouseEvent<HTMLButtonElement>) => handleDelete(event)}
+      onClick={(event: MouseEvent<HTMLButtonElement>) => {
+        buttonType === "DELETE" ? handleDelete(event) : handleEdit(event);
+      }}
       css={[styles.iconButtonReset, _css]}
     >
       {setIcon(buttonType)}
