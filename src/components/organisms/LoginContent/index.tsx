@@ -21,7 +21,7 @@ export const LoginContent: FC<PropTypes> = ({
 
   const handleLogin = (e?: React.FormEvent<HTMLFormElement>) => {
     if (e) e.preventDefault();
-    if (id === "hyeyeong" && password === "1234") {
+    if (id === "admin" && password === "1234") {
       sessionStorage.setItem("isLogin", "true");
       setIsLogin(true);
     }
@@ -33,8 +33,8 @@ export const LoginContent: FC<PropTypes> = ({
         Daily pieces
       </Title>
       <form css={styles.cardsBlock} onSubmit={handleLogin}>
-        <Input name="id" type="text" placeholder="ID" value={id} onChange={(e) => setId(e.target.value)} />
-        <Input name="password" type="password" placeholder="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+        <Input name="id" type="text" placeholder="ID: admin" value={id} onChange={(e) => setId(e.target.value)} />
+        <Input name="password" type="password" placeholder="password: 1234" value={password} onChange={(e) => setPassword(e.target.value)} />
         <button type="submit" css={styles.loginButton}>로그인</button>
       </form>
     </ContentsWrap>
