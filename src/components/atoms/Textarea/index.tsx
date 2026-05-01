@@ -9,25 +9,27 @@ interface PropTypes {
   colorType?: ColorTypes;
   name: string;
   value: string | number;
-  onChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  onChange: (event: ChangeEvent<HTMLTextAreaElement>) => void;
   _css?: SerializedStyles | SerializedStyles[];
+  rows?: number;
 }
 
-export const Input: FC<PropTypes> = ({
+export const Textarea: FC<PropTypes> = ({
   onChange,
   placeholder,
   colorType = "default",
   name,
   value,
+  rows = 3,
   _css,
 }) => {
   return (
-    <input
-      css={[initialStyle, colorType && InputStyles(colorType), _css]}
+    <textarea
+      rows={rows}
+      css={[initialStyle, colorType && TextareaStyles(colorType), _css]}
       onChange={onChange}
       name={name}
       value={value}
-      type={"text"}
       placeholder={placeholder}
     />
   );
@@ -35,14 +37,15 @@ export const Input: FC<PropTypes> = ({
 
 const initialStyle = css`
   width: 100%;
+  max-width: 100%;
   padding: 10px;
   border-radius: 5px;
-  line-height: 14px;
+  line-height: 1.4;
   box-sizing: border-box;
   border: 1px solid ${COLORS.GRAY[2]};
 `;
 
-const InputStyles = (colorType: ColorTypes) => {
+const TextareaStyles = (colorType: ColorTypes) => {
   switch (colorType) {
     case "default":
       return css`

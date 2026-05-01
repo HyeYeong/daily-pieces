@@ -2,6 +2,7 @@ import { css, SerializedStyles } from "@emotion/react";
 import React, { ChangeEvent, FC, useState, useEffect } from "react";
 import { Title } from "@/components/atoms/Title";
 import { Input } from "@/components/atoms/Input";
+import { Textarea } from "@/components/atoms/Textarea";
 import { mediaQueries } from "@/styles/mixins/MediaQueries";
 import { Select, OptionType } from "@/components/atoms/Select";
 import { Button } from "@/components/atoms/Button";
@@ -75,7 +76,7 @@ export const AddNewDailyData: FC<PropTypes> = ({ _css, sortingArr }) => {
   }, [sortingArr]);
 
   const handleChange = (
-    event: ChangeEvent<HTMLInputElement | HTMLSelectElement>
+    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ): void => {
     const { value, name } = event.target;
     setInputData({
@@ -108,12 +109,13 @@ export const AddNewDailyData: FC<PropTypes> = ({ _css, sortingArr }) => {
         <Title element="H4" requirement={true} _css={styles.subTitle}>
           내용
         </Title>
-        <Input
+        <Textarea
           placeholder={inputError ? ERROR_MSG : "내용을 입력해 주세요"}
           onChange={handleChange}
           value={inputData.comment}
           name="comment"
           _css={styles.input}
+          rows={10}
         />
 
         <Title element="H4" requirement={true} _css={styles.subTitle}>
