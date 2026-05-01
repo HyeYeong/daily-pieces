@@ -22,7 +22,6 @@ export const DailyDataCard: FC<PropTypes> = ({
 }) => {
   const { title, comment, score, date, sort, id } = item;
 
-  //TODO: 데이터 수정 기능 추가하기
   return (
     <article css={[styles.wrap, _css]} id={`${item.id}`}>
       <Title element="H4" _css={styles.title}>
@@ -35,14 +34,13 @@ export const DailyDataCard: FC<PropTypes> = ({
       </div>
       <section css={styles.iconSection}>
         {score !== 0 && <Star score={score} />}
-        {/* TODO: 데이터 수정 기능 구현 시 아래 dom살리기 */}
         <div css={styles.iconsWrap}>
-          {/* <CardControlButton
+          <CardControlButton
             itemId={id}
             buttonType="EDIT"
             sortingArr={sortingArr}
             setSortingArr={setSortingArr}
-          /> */}
+          />
           <CardControlButton
             buttonType="DELETE"
             sortingArr={sortingArr}
@@ -79,6 +77,7 @@ const styles = {
     font-size: 14px;
     line-height: 14px;
     margin: 0;
+    white-space: pre-wrap;
     word-wrap: break-word;
   `,
   iconSection: css`

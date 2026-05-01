@@ -66,6 +66,21 @@ export const CardControlButton: FC<PropTypes> = ({
     setDailyDatas(() => sortingArr);
   }, [sortingArr]);
 
+  const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
+    if (buttonType === 'EDIT') {
+      handleEdit(event)
+    } else {
+      handleDelete(event)
+    }
+  };
+
+  //TODO: 데이터 수정 기능 추가하기
+  const handleEdit = (event: MouseEvent<HTMLButtonElement>) => {
+    const targetId = parseInt(event.currentTarget.offsetParent!.id, 10);
+    console.log(targetId);
+    // add edit function
+  };
+
   const handleDelete = (event: MouseEvent<HTMLButtonElement>) => {
     const targetId = parseInt(event.currentTarget.offsetParent!.id, 10);
     if (isLastData) window.localStorage.removeItem("dailyDatas");
@@ -74,7 +89,7 @@ export const CardControlButton: FC<PropTypes> = ({
 
   return (
     <button
-      onClick={(event: MouseEvent<HTMLButtonElement>) => handleDelete(event)}
+      onClick={handleClick}
       css={[styles.iconButtonReset, _css]}
     >
       {setIcon(buttonType)}
