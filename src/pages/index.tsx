@@ -25,7 +25,7 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <main css={styles.global}>
-        {/* <SearchDailyDatas keyword={keyword} setKeyword={setKeyword} /> */}
+        <SearchDailyDatas keyword={keyword} setKeyword={setKeyword} />
         <Centering _css={styles.mqCentering}>
           <div css={styles.mqWrap}>
             <AddNewDailyData sortingArr={sortingArr} />
