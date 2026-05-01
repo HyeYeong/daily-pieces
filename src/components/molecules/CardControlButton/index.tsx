@@ -4,6 +4,7 @@ import React, { FC, MouseEvent, useEffect, useState } from "react";
 import { useDailyDatas } from "@/helpers/hooks/useDailyDatas";
 import Icon from "@/components/atoms/Icon";
 import { DailyDataItemType } from "@/helpers/common/DataTypes";
+import { ButtonType } from "@/constants/button";
 
 import {
   MINUS_CLASS_NAME,
@@ -12,7 +13,6 @@ import {
   PENCIL_HOVER_CLASS_NAME,
 } from "@/styles/variables/Icons";
 
-type ButtonType = "EDIT" | "DELETE";
 interface PropTypes {
   buttonType: ButtonType;
   iconColor?: string;
@@ -21,6 +21,9 @@ interface PropTypes {
   _css?: SerializedStyles | SerializedStyles[];
   sortingArr: DailyDataItemType[];
   setSortingArr: React.Dispatch<React.SetStateAction<DailyDataItemType[]>>;
+  isEditMode?: boolean;
+  setIsEditMode?: React.Dispatch<React.SetStateAction<boolean>>;
+  onSave?: () => void;
 }
 
 export const CardControlButton: FC<PropTypes> = ({
@@ -31,12 +34,15 @@ export const CardControlButton: FC<PropTypes> = ({
   itemId,
   sortingArr,
   setSortingArr,
+  isEditMode,
+  setIsEditMode,
+  onSave,
 }) => {
   const { setDailyDatas } = useDailyDatas();
   const [isLastData, setIsLastData] = useState(false);
 
-  const iconType = (buttonType: ButtonType) => {
-    switch (buttonType) {
+  const iconType = (bType: ButtonType) => {
+    switch (bType) {
       case "EDIT":
         return {
           class: PENCIL_CLASS_NAME,
@@ -47,14 +53,19 @@ export const CardControlButton: FC<PropTypes> = ({
           class: MINUS_CLASS_NAME,
           hoverClass: MINUS_HOVER_CLASS_NAME,
         };
+      case "SAVE":
+        return {
+          class: "fa fa-check",
+          hoverClass: "fa fa-check-square",
+        };
     }
   };
 
-  const setIcon = (buttonType: ButtonType) => {
+  const setIcon = (bType: ButtonType) => {
     return (
       <Icon
-        classNames={iconType(buttonType).class}
-        hoverClassNames={iconType(buttonType).hoverClass}
+        classNames={iconType(bType).class}
+        hoverClassNames={iconType(bType).hoverClass}
         iconColor={iconColor}
         isHover={isHover}
       />
@@ -69,20 +80,21 @@ export const CardControlButton: FC<PropTypes> = ({
   const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
     if (buttonType === 'EDIT') {
       handleEdit(event)
+    } else if (buttonType === 'SAVE') {
+      if (onSave) onSave();
     } else {
       handleDelete(event)
     }
   };
 
-  //TODO: 데이터 수정 기능 추가하기
   const handleEdit = (event: MouseEvent<HTMLButtonElement>) => {
-    const targetId = parseInt(event.currentTarget.offsetParent!.id, 10);
-    console.log(targetId);
-    // add edit function
+    if (setIsEditMode) {
+      setIsEditMode(true);
+    }
   };
 
   const handleDelete = (event: MouseEvent<HTMLButtonElement>) => {
-    const targetId = parseInt(event.currentTarget.offsetParent!.id, 10);
+    const targetId = itemId ? Number(itemId) : parseInt(event.currentTarget.offsetParent!.id, 10);
     if (isLastData) window.localStorage.removeItem("dailyDatas");
     return setSortingArr(sortingArr.filter((data) => data.id !== targetId));
   };

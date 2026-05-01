@@ -8,6 +8,7 @@ import { useDailyDatas } from "@/helpers/hooks/useDailyDatas";
 import { DailyDataItemType, tagType } from "@/helpers/common/DataTypes";
 import { mediaQueries } from "@/styles/mixins/MediaQueries";
 import { COLORS } from "@/styles/variables/Colors";
+import { MESSAGES } from "@/constants/messages";
 
 interface PropTypes {
   _css?: SerializedStyles | SerializedStyles[];
@@ -77,8 +78,7 @@ export const DailyDatasList: FC<PropTypes> = ({
   const errorMsg = () => {
     return (
       <p css={styles.emptyData}>
-        앗! <br />
-        아직 등록된 이야기가 없거나 불러올 수 없어요 {`:(`}
+        {MESSAGES.EMPTY_DATA}
       </p>
     );
   };

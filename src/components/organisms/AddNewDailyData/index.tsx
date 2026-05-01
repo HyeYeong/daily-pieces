@@ -10,6 +10,7 @@ import ContentsWrap from "@/components/templates/ContentsWrap";
 import { DailyDataItemType } from "@/helpers/common/DataTypes";
 import { useDailyDatas } from "@/helpers/hooks/useDailyDatas";
 import moment from "moment";
+import { MESSAGES } from "@/constants/messages";
 
 interface PropTypes {
   _css?: SerializedStyles | SerializedStyles[];
@@ -23,7 +24,7 @@ export const AddNewDailyData: FC<PropTypes> = ({ _css, sortingArr }) => {
 
   const [inputError, setInputError] = useState(false);
   const [today] = useState(moment());
-  const ERROR_MSG = "내용이 입력되지 않았습니다. 내용을 입력해주세요.";
+
   const DEFAULT_REVIEW_DATA: DailyDataItemType = {
     id: nextId,
     title: "",
@@ -98,7 +99,7 @@ export const AddNewDailyData: FC<PropTypes> = ({ _css, sortingArr }) => {
         </Title>
         <div>
           <Input
-            placeholder={inputError ? ERROR_MSG : "제목을 입력해 주세요"}
+            placeholder={inputError ? MESSAGES.EMPTY_INPUT : "제목을 입력해 주세요"}
             onChange={handleChange}
             value={inputData.title}
             name="title"
@@ -110,7 +111,7 @@ export const AddNewDailyData: FC<PropTypes> = ({ _css, sortingArr }) => {
           내용
         </Title>
         <Textarea
-          placeholder={inputError ? ERROR_MSG : "내용을 입력해 주세요"}
+          placeholder={inputError ? MESSAGES.EMPTY_INPUT : "내용을 입력해 주세요"}
           onChange={handleChange}
           value={inputData.comment}
           name="comment"
