@@ -3,6 +3,7 @@ import { css, SerializedStyles } from "@emotion/react";
 import React, { ChangeEvent, FC } from "react";
 
 type ColorTypes = "default" | "gray" | "navy";
+type InputTypes = "text" | "password" | "number" | "email" | "url" | "tel" | "search" | "submit" | "reset" | "button" | "date" | "datetime-local" | "month" | "week" | "color";
 
 interface PropTypes {
   placeholder: string;
@@ -10,6 +11,7 @@ interface PropTypes {
   name: string;
   value: string | number;
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  type?: InputTypes;
   _css?: SerializedStyles | SerializedStyles[];
 }
 
@@ -19,6 +21,7 @@ export const Input: FC<PropTypes> = ({
   colorType = "default",
   name,
   value,
+  type = "text",
   _css,
 }) => {
   return (
@@ -27,7 +30,7 @@ export const Input: FC<PropTypes> = ({
       onChange={onChange}
       name={name}
       value={value}
-      type={"text"}
+      type={type}
       placeholder={placeholder}
     />
   );

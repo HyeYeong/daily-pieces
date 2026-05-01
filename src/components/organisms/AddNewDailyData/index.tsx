@@ -62,9 +62,9 @@ export const AddNewDailyData: FC<PropTypes> = ({ _css, sortingArr }) => {
   });
 
   const resetInputs = () => setInputData(DEFAULT_REVIEW_DATA);
-  const handleSubmit = (event: ChangeEvent<HTMLButtonElement>) => {
+  const handleSubmit = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    event.preventDefault();
     if (inputData.title === "" || inputData.comment === "") {
-      event.preventDefault();
       setInputError(true);
     } else {
       setDailyDatas(sortingArr.concat(inputData));
@@ -142,7 +142,7 @@ export const AddNewDailyData: FC<PropTypes> = ({ _css, sortingArr }) => {
         />
         <Button
           colorType={"cadetBlue"}
-          onClick={(event: ChangeEvent<HTMLButtonElement>) =>
+          onClick={(event: any) =>
             handleSubmit(event)
           }
         >

@@ -1,6 +1,6 @@
 import Head from "next/head";
 import { css } from "@emotion/react";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { mediaQueries } from "@/styles/mixins/MediaQueries";
 import { COLORS } from "@/styles/variables/Colors";
 import { AddNewDailyData } from "@/components/organisms/AddNewDailyData";
@@ -9,12 +9,20 @@ import { DailyDatasList } from "@/components/organisms/DailyDatasList";
 import { useDailyDatas } from "@/helpers/hooks/useDailyDatas";
 import Centering from "@/components/templates/Centering";
 import { DailyDataItemType } from "@/helpers/common/DataTypes";
+import { LoginContent } from "@/components/organisms/LoginContent";
 
 export default function Home() {
   type keywordType = string;
   const { dailyDatas } = useDailyDatas();
   const [keyword, setKeyword] = useState<keywordType>("");
   const [sortingArr, setSortingArr] = useState<DailyDataItemType[]>(dailyDatas);
+  const [isLogin, setIsLogin] = useState(false);
+
+  useEffect(() => {
+    if (sessionStorage.getItem("isLogin") === "true") {
+      setIsLogin(true);
+    }
+  }, []);
 
   return (
     <>
@@ -25,17 +33,26 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <main css={styles.global}>
-        <SearchDailyDatas keyword={keyword} setKeyword={setKeyword} />
-        <Centering _css={styles.mqCentering}>
-          <div css={styles.mqWrap}>
-            <AddNewDailyData sortingArr={sortingArr} />
-            <DailyDatasList
-              keyword={keyword}
-              sortingArr={sortingArr}
-              setSortingArr={setSortingArr}
-            />
-          </div>
-        </Centering>
+        {
+          isLogin ? (
+            <>
+              <SearchDailyDatas keyword={keyword} setKeyword={setKeyword} />
+              <Centering _css={styles.mqCentering}>
+                <div css={styles.mqWrap}>
+                  <AddNewDailyData sortingArr={sortingArr} />
+                  <DailyDatasList
+                    keyword={keyword}
+                    sortingArr={sortingArr}
+                    setSortingArr={setSortingArr}
+                  />
+                </div>
+              </Centering>
+            </>
+          ) : (
+            <LoginContent setIsLogin={setIsLogin} />
+          )
+        }
+
       </main>
     </>
   );
