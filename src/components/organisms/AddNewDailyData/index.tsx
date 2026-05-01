@@ -15,9 +15,10 @@ import { MESSAGES } from "@/constants/messages";
 interface PropTypes {
   _css?: SerializedStyles | SerializedStyles[];
   sortingArr: DailyDataItemType[];
+  setSortingArr: React.Dispatch<React.SetStateAction<DailyDataItemType[]>>;
 }
 
-export const AddNewDailyData: FC<PropTypes> = ({ _css, sortingArr }) => {
+export const AddNewDailyData: FC<PropTypes> = ({ _css, sortingArr, setSortingArr }) => {
   const { setDailyDatas } = useDailyDatas();
   let lastId = sortingArr.length ? sortingArr[sortingArr.length - 1].id : 0;
   let [nextId] = useState(() => (sortingArr.length > 0 ? lastId + 1 : 0));
@@ -67,7 +68,9 @@ export const AddNewDailyData: FC<PropTypes> = ({ _css, sortingArr }) => {
     if (inputData.title === "" || inputData.comment === "") {
       setInputError(true);
     } else {
-      setDailyDatas(sortingArr.concat(inputData));
+      const newArr = sortingArr.concat(inputData);
+      setSortingArr(newArr);
+      setDailyDatas(newArr);
       resetInputs();
     }
   };

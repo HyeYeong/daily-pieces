@@ -39,7 +39,7 @@ export default function Home() {
               <SearchDailyDatas keyword={keyword} setKeyword={setKeyword} />
               <Centering _css={styles.mqCentering}>
                 <div css={styles.mqWrap}>
-                  <AddNewDailyData sortingArr={sortingArr} />
+                  <AddNewDailyData sortingArr={sortingArr} setSortingArr={setSortingArr} />
                   <DailyDatasList
                     keyword={keyword}
                     sortingArr={sortingArr}
